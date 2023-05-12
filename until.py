@@ -40,6 +40,54 @@ def get_yaohai(yaohai):
     else:
         return 1
 
+def update_shux_info(info,sxname,uplevel,uptype)
+    #9攻击等级,10防御等级,11特攻等级,12特防等级,13速度等级,14要害等级,15闪避等级,16命中等级
+    shuxlist = {
+        'ATK':['9','攻击'],
+        'DEF':['10','防御'],
+        'SPATK':['11','特攻'],
+        'SPDEF':['12','特防'],
+        'SPD':['13','速度'],
+        'CT':['14','要害'],
+        'ER':['15','闪避'],
+        'ACT':['16','命中']
+    }
+    shuxlvreturn = {
+        '6':'巨幅',
+        '5':'巨幅',
+        '4':'巨幅',
+        '3':'巨幅',
+        '2':'大幅',
+        '1':''
+    }
+    for name in shuxlist:
+        if sxname == name:
+            if uptype == 'down':
+                if int(info[shuxlist[name][0]]) == -6:
+                    msg = f'{info[0]}的{shuxlist[name][1]}已经无法再降低了！'
+                else:
+                    newnum = int(info[shuxlist[name][0]]) - int(uplevel)
+                    if int(newnum) < -6:
+                        info[shuxlist[name][0]] = -6
+                        uplevel_num = int(info[shuxlist[name][0]]) + 6
+                        msg = f'{info[0]}的{shuxlist[name][1]}{shuxlvreturn[uplevel_num]}降低了！'
+                    else:
+                        info[shuxlist[name][0]] = newnum
+                        msg = f'{info[0]}的{shuxlist[name][1]}{shuxlvreturn[uplevel]}降低了！'
+            else:
+                if int(info[shuxlist[name][0]]) == 6:
+                    msg = f'{info[0]}的{shuxlist[name][1]}已经无法再提高了！'
+                else:
+                    newnum = int(info[shuxlist[name][0]]) + int(uplevel)
+                    if int(newnum) > 6:
+                        info[shuxlist[name][0]] = 6
+                        uplevel_num = 6 - int(info[shuxlist[name][0]])
+                        msg = f'{info[0]}的{shuxlist[name][1]}{shuxlvreturn[uplevel_num]}提高了！'
+                    else:
+                        info[shuxlist[name][0]] = newnum
+                        msg = f'{info[0]}的{shuxlist[name][1]}{shuxlvreturn[uplevel]}提高了！'
+    return msg,info
+
 def get_mingzhong(jineng_mz, my_mngzhong, di_shanbi, changdi):
     jineng_b = (255 * int(jineng_mz))/100
     mingzhong_lv = int(my_mngzhong) - int(di_shanbi)
@@ -438,7 +486,8 @@ def get_gushang(jineng,myinfo,diinfo,myzhuangtai,dizhuangtai,changdi,shanghai):
     else:
         mes = mes + f'\n{diinfo[0]}失去了战斗能力'
     return mes,myinfo,diinfo,myzhuangtai,dizhuangtai,changdi
-    
+
+#获取状态持续伤害
 def get_zhuangtai_sh(myinfo,diinfo,myzhuangtai,dizhuangtai,changdi):
     if myzhuangtai[0][0] == '灼烧':
         shanghai = int(myinfo[3]/16)
@@ -456,7 +505,8 @@ def get_zhuangtai_sh(myinfo,diinfo,myzhuangtai,dizhuangtai,changdi):
     else:
         mes = mes + f'\n{myinfo[0]}失去了战斗能力'
     return mes,myinfo,diinfo,myzhuangtai,dizhuangtai,changdi
-    
+
+#获取天气持续伤害
 def get_tianqi_sh(myinfo,diinfo,myzhuangtai,dizhuangtai,changdi):
     myshuxinglist = re.split(',',myinfo[1])
     dishuxinglist = re.split(',',diinfo[1])
@@ -513,3 +563,28 @@ def get_tianqi_sh(myinfo,diinfo,myzhuangtai,dizhuangtai,changdi):
         else:
             mes = mes + f'\n{diinfo[0]}失去了战斗能力'
     return mes,myinfo,diinfo,myzhuangtai,dizhuangtai,changdi
+
+#我方技能对敌方属性提升/降低效果
+def up_shux_info_di(jineng,myinfo,diinfo,myzhuangtai,dizhuangtai,changdi,sxinfo,lvinfo,typeinfo):
+    jinenginfo = JINENG_LIST[jineng]
+    
+    if dizhuangtai[1][0] == '无敌' and int(dizhuangtai[1][1]) > 0:
+        mes = f'{diinfo[0]}处于保护状态，技能无效'
+        return mes,myinfo,diinfo,myzhuangtai,dizhuangtai,changdi
+    
+    ismingzhong = get_mingzhong(jinenginfo[3], myinfo[16], diinfo[15], changdi)
+    if ismingzhong == 0:
+        mes = f'{myinfo[0]}使用了技能{jineng}，技能未命中'
+        return mes,myinfo,diinfo,myzhuangtai,dizhuangtai,changdi
+        
+    sxlist = re.split(',', sxinfo)
+    lvlist = re.split(',', lvinfo)
+    typelist = re.split(',', typeinfo)
+    updatesx_num = len(sxlist)
+    for i in range(0,updatesx_num):
+        sxname = sxlist[i]
+        uplevel = lvlist[i]
+        uptype = typelist[i]
+        diinfo = update_shux_info(diinfo,sxname,uplevel,uptype)
+    
+    
