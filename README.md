@@ -33,4 +33,4 @@ git clone https://github.com/jiluoQAQ/pokemon</br>
 然后重启 HoshinoBot</br>
 
 <h1>当前进度：</h1>
-目前已完成普通直伤技能的调用，附加状态技能的调用，状态技能正在完善中，技能列表和调用方法在pokemon.py文件，技能的函数在until.py文件，欢迎pr
+目前已完成普通直伤技能的调用，附加状态技能的调用，状态技能正在完善中，技能列表和调用方法在pokemon.py文件的JINENG_LIST，技能的函数在until.py文件，欢迎pr，有问题或者有兴趣可以联系qq：376148946咨询
