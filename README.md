@@ -31,3 +31,6 @@ git clone https://github.com/jiluoQAQ/pokemon</br>
 在 HoshinoBot\hoshino\config\ bot.py 文件的 MODULES_ON 加入 'pokemon'</br>
 
 然后重启 HoshinoBot</br>
+
+<h1>当前进度：</h1>
+目前已完成普通直伤技能的调用，附加状态技能的调用，状态技能正在完善中，技能列表和调用方法在pokemon.py文件，技能的函数在until.py文件，欢迎pr
