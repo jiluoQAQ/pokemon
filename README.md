@@ -1,4 +1,4 @@
-<h1>宝可梦对战</h1></br>
+<h1>宝可梦对战V0.2</h1></br>
 
 注意：功能只适用于HoshinoBot，并未在NoneBot和NoneBot2中进行测试！</br>
 
@@ -33,4 +33,4 @@ git clone https://github.com/jiluoQAQ/pokemon</br>
 然后重启 HoshinoBot</br>
 
 <h1>当前进度：</h1>
-目前已完成普通直伤技能的调用，附加状态技能的调用，状态技能正在完善中，技能列表和调用方法在pokemon.py文件的JINENG_LIST，技能的函数在until.py文件，欢迎pr，有问题或者有兴趣可以联系qq：376148946咨询
+目前已完成普通直伤技能的调用，附加状态技能的调用，状态技能正在完善中，技能列表和调用方法在pokemon.py文件的JINENG_LIST，技能的函数在until.py文件，精灵特性暂时打算2.0后再加，欢迎pr，有问题或者有兴趣可以联系qq：376148946咨询
