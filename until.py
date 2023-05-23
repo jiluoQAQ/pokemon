@@ -40,7 +40,7 @@ def get_yaohai(yaohai):
     else:
         return 1
 
-def update_shux_info(info,sxname,uplevel,uptype)
+def update_shux_info(info,sxname,uplevel,uptype):
     #9攻击等级,10防御等级,11特攻等级,12特防等级,13速度等级,14要害等级,15闪避等级,16命中等级
     shuxlist = {
         'ATK':['9','攻击'],
